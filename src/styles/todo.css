@@ -1,0 +1,14 @@
+.header-text {
+    bottom: 0%;
+}
+.todo-background{
+    background-color: burlywood;
+}
+.todo-container{
+    opacity: 0.84;
+    padding-left: 5rem;
+}
+hr{
+    margin: 0% !important;
+    padding: 0.1%;
+}
