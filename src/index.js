@@ -8,21 +8,28 @@ function router(url) {
     }
 }
 
+class collection{
+    constructor(data) {
+        this.data = data;
+        this.createItem =(todo) => {
+            return _.template(`<li name='todo-item'><input type="checkbox" > <%= item %> </li>`)(todo);
+        }
+        this.createItemList =()=>{
+            const $ul = $('<ul  />');
+            $ul.append(this.data.map((todo) => this.createItem(todo)));
+            return $ul;
+        }
+    }
+}
+
 window.onload = function () {
     router(_.split(window.location, '/'));
 }
 
-const createTodo = (todo) => {
-    
-    return _.template(`<li name='todo-item'> <%= item %> </li>`)(todo);
-}
-const createTodos = () => {
-    const $ul = $('<ul />');
-    $ul.append(todos.map((todo) => createTodo(todo)));
-    return $ul;
-}
+
 
 function createTodoPage(){
-    const element = createTodos();
-    console.log(element);
+    let newtodos =new collection(todos);
+    const element = newtodos.createItemList();
+    $('#todo-section').append(element[0]);
 }

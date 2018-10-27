@@ -12,3 +12,6 @@ hr{
     margin: 0% !important;
     padding: 0.1%;
 }
+li{
+    list-style-type: none !important;
+}
