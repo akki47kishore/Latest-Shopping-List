@@ -1,15 +1,23 @@
 const todos = [
     {
-        item: 'Buy Soap-5',
+        item: 'Soap',
+        qty: 5,
+        done: false
     },
     {
-        item: 'Buy Candles-4',
+        item: 'Cake',
+        qty: 1,
+        done: false
     },
     {
-        item: 'Buy Cake-1',
+        item: 'Candles',
+        qty: 4,
+        done: false
     },
     {
-        item: 'Buy Confetti-10',
+        item: 'Confetti',
+        qty: 10,
+        done: false
     }
 ];
 

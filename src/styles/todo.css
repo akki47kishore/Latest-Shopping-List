@@ -15,3 +15,11 @@ hr{
 li{
     list-style-type: none !important;
 }
+.remove-btn{
+    padding-top: 0% !important;
+    height: 20px !important;
+    float: right !important ;
+}
+.add-To-do{
+    margin-left: 5.5% !important;
+}
