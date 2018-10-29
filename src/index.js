@@ -41,7 +41,8 @@ class collection {
 }
 
 window.onload = function () {
-    window.history.pushState('todo', '', '#todo');
+    //window.history.pushState('todo', '', '#todo');
+    createTodoPage();
 };
 
 function createTodoPage() {
