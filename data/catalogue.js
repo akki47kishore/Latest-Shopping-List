@@ -1,5 +1,6 @@
 const catalogue = {
-        Soap: [{
+        Soap: [
+            {
                 item: 'Lux',
                 cost: 90,
                 qty: 50
