@@ -2,12 +2,8 @@ import {catalogue} from '../data/catalogue.js';
 import {todos} from '../data/todos.js';
 let prev_page;
 let collectionInstances = [];
-class collection {
-    constructor(data) {
-        this.data = data;
-        this.count = 0;
-    }
-    createListItem(element, type, ul_header) {
+
+function createListItem(element, type, ul_header) {
         this.count++;
         if (type === 'todo') {
             return _.template(`<li name='todo-item' id='todo${this.count}' class='py-2 list-group-item" w-25 pr-2'><input type="checkbox" class='checkbox' value ='<%= item %>' disabled> Buy <%= item %> - <%= qty%> <button type='button' name='Remove'  class='btn btn-danger remove-btn'>x</button></li>`)(element);
@@ -17,45 +13,44 @@ class collection {
             return _.template(`<li name='todo-item' id='todo${this.count}' class='py-2 list-group-item" w-25 pr-2'> <%= item %> <%= qty%> <button type='button' name='Remove'  class='btn btn-danger remove-btn'>x</button></li>`)(element);
         }
 
-
-    }
-    createList(ul_header) {
+}
+function createList(ul_header) {
         const $ul = $(`<ul class="ml-3 my-3" id="collection-ul"><b>${ul_header}</b></ul>`);
         return $ul;
     }
-    addNewItem($ul, type, ul_header) {
-        $ul.append(this.data.map((element) => this.createListItem(element, type, ul_header)));
-        return $ul;
+function createTodos(element, index) {
+    const checked = element.done ?'checked':'';
+    const labelTxt = element.done ? '<s>Buy <%= item %> - <%= qty%></s>' : 'Buy <%= item %> - <%= qty%>';
+    return _.template(`<li name='todo-item'  class='py-2 list-group-item" w-25 pr-2'>
+                            <input type="checkbox" class='checkbox' id='todo${index}' value ='<%= item %>' ${checked}> 
+                            <label class="form-check-label" for='todo${index}'>${labelTxt}</label>  
+                            <button type='button' name='Remove'  class='btn btn-danger remove-btn'>x</button>
+                      </li>`)(element);
     }
-    addEvent(){
+function addEvent(){
         $('#page').on("click", function (e) {
             if (e.target && e.target.name === 'Remove') {
                 $(e.target).parent().remove();
             }
         });
     }
-    destroy() {
+function destroy() {
         $('#collection-ul').off('click');
     }
 
-}
 
 window.onload = function () {
     window.history.pushState('todo', '', '#todo');
 };
 
 function createTodoPage() {
-    collectionInstances[0] = new collection(todos);
-    const element = collectionInstances[0].createList("Here's the list of items to buy");
-    collectionInstances[0].addNewItem(element, 'todo', 'to-dos');
+    const $ul = createList("Here's the list of items to buy");
+    $ul.append(todos.map((element,index) => createTodos(element,index)));
     document.getElementById("page-name").innerHTML = 'To-Do Items';
-    $('#todo-section').append(element[0]);
-    // $('#collection-ul').on("click", function (e) {
-    //     if (e.target && e.target.nodeName === 'BUTTON') {
-    //         $(e.target).parent().remove();
-    //     }
-    // });
-    collectionInstances[0].addEvent();
+    $ul.append(`<button class='btn btn-success add-To-do'>Add More</button>
+                <button class='btn btn-primary' id="changeToCatalogue" >SUBMIT</button>`);
+    $('#page').append($ul[0]);
+    addEvent();
     $("#changeToCatalogue").on("click", function () {
         prev_page = 'todo';
         window.history.pushState('Catalogue', '', '#Catalogue'); //?Check it out later 
@@ -87,18 +82,25 @@ function createCartPage() {
     $('#page').html($section);
     document.getElementById("page-name").innerHTML = 'Cart';
 }
-
+function createCatalogueOptions(element,index,category){
+    return _.template(`<li name='todo-item' id='catalogue${index}' class='py-2 list-group-item" w-50  pr-2'> Buy <%= item %> - <input type="number"  class="form-control h-75 float-right d-inline  w-25 itemsChosen" value='' name= '${category}_<%= item %>' placeholder ='0'> </li>`)(element);
+}
 function createCataloguePage() {
     document.getElementById("page-name").innerHTML = 'Catalogue';
-    let checkboxValues = $('.checkbox').map(function () {
-        return $(this).val();
-    }).get();
+    let checkboxValues = Array.from($('.checkbox').map(function () {
+        if($(this).prop("checked") !== true){
+            return $(this).val();
+        }else {
+            return 1;
+        }    
+    }));
+    checkboxValues = _.pull(checkboxValues,1);
+    console.log(checkboxValues);
     const $section = $(`<section class = "mt-3"></section>`);
-    checkboxValues.forEach((element, index) => {
-        collectionInstances[index] = new collection(catalogue[element]);
-        const newlist = collectionInstances[index].createList(`${element} - choose from the options below:`);
-        collectionInstances[index].addNewItem(newlist, 'catalogue', element);
-        $section.append(newlist[0]);
+    checkboxValues.forEach((category) => {
+        let $ul = createList(`${category} - choose from the options below:`);
+        $ul.append(catalogue[category].map((element,index) => createCatalogueOptions(element,index,category)));
+        $section.append($ul[0]);
     });
     $section.append(`<button type = 'button' id='changeToCart' class = 'btn btn-primary '>Submit</button> `);
     $('#page').html($section);
