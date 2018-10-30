@@ -30,7 +30,7 @@ const catalogue = {
             {
                 item: 'Choclate',
                 cost: 950,
-                qty: 5
+                qty: 25
             }
         ],
 
@@ -47,19 +47,19 @@ const catalogue = {
             {
                 item: 'Choclate',
                 cost: 95,
-                qty: 5
+                qty: 15
             }
         ],
     
         Candles: [{
                 item: 'Cheap',
                 cost: 40,
-                qty: 170
+                qty: 70
             },
             {
                 item: 'Expensive',
                 cost: 120,
-                qty: 205
+                qty: 85
             }
         ],
     
@@ -78,29 +78,27 @@ const catalogue = {
         Ballons: [{
                 item: 'Cheap',
                 cost: 10,
-                qty: 1700
+                qty: 17
             },
             {
                 item: 'Expensive',
                 cost: 20,
-                qty: 2500
+                qty: 25
             }
         ],
     
         Drinks: [{
                 item: 'Coke',
                 cost: 30,
-                qty: 100
+                qty: 10
             },
             {
                 item: 'Pepsi',
                 cost: 40,
-                qty: 250
+                qty: 50
             }
         ]
        
     };
 
-export {
-    catalogue
-};
+export {catalogue};

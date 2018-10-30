@@ -17,9 +17,21 @@ li{
 }
 .remove-btn{
     padding-top: 0% !important;
-    height: 20px !important;
-    float: right !important ;
+    margin-left: 9.4rem;
 }
 .add-To-do{
     margin-left: 5.5% !important;
+}
+.w-10{
+    width: 10%;
+}
+.nav-text{
+    right: 5.1rem;
+}
+a:hover{
+    cursor: pointer;
+}
+.total{
+    margin-left: 7rem;
+    
 }

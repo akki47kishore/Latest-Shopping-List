@@ -2,22 +2,22 @@ const todos = [
     {
         item: 'Soap',
         qty: 5,
-        done: false
+        active:false
     },
     {
         item: 'Cake',
         qty: 1,
-        done: false
+        active:false
     },
     {
         item: 'Candles',
         qty: 4,
-        done: false
+        active:false
     },
     {
         item: 'Confetti',
         qty: 10,
-        done: false
+        active:false
     }
 ];
 

@@ -7,14 +7,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 </head>
 
 <body>
-    <section class="containerfluid pt-3 pl-5 pr-4 pb-1 heading bg-dark position-relative">
+    <section class=" pt-3 pl-5 pr-4 pb-1 heading bg-dark position-relative ">
+        <section class="w-50 d-inline-block">
+            <img class="ml-5 " src="../src/images/logo.png" id="logo" />
+            <span class="h1 text-light mt-4 header-text position-absolute mb-0">Shopping List</span>
+        </section>
+        <section class="w-40 d-inline-block mt-3">
 
-        <img class="ml-5 " src="../src/images/logo.png" id="logo" />
-        <span class="h1 text-secondary position-absolute header-text">Shopping List</span>
+            <ul class="nav float-right nav-text position-absolute" id='nav-bar'>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold" name='todo'>To-do's</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold" name='catalogue'>Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold" name='cart' >Cart</a>
+                </li>
+
+            </ul>
+        </section>
     </section>
     <section class=" containerfluid  p-5 todo-background">
 
@@ -28,7 +44,7 @@
             </section>
         </section>
     </section>
-    <script src="../src/lodash.js"></script>
+    <script src = "../src/lodash.js"></script>
     <script type="module" src="../src/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
