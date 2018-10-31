@@ -4,24 +4,24 @@ import {createCartPage} from './cart.js';
 import {createCheckoutPage} from './checkout.js';
 import {catalogue} from '../data/catalogue.js';
 let prev_page;
-
 function createList(ul_header) {
     const $ul = $(`<ul class="ml-3 my-3 list-group" id="collection-ul "><b class='py-3 pl-1 '>${ul_header}</b></ul>`);
     return $ul;
 }
 
 function createTodos(element, index) {
-    const checked = (element.active === true) ? 'checked' : '';
+    const checked = (element.active === true || element.active === 'done') ? 'checked' : '';
+    const disabled = (element.active === 'done' )? 'disabled' : '';
     const labelTxt = (element.active === 'done' )? '<s>Buy <%= item %> - <%= qty%></s>' : 'Buy <%= item %> - <%= qty%>';
     return _.template(`<li name='todo-item' id='todo_${index}'  class='py-2 list-group-item border" w-25 pr-2'>
-                            <input type="checkbox" name='checkbox' class='checkbox' id='${index}'  value ='<%= item %>' ${checked}> 
+                            <input type="checkbox" name='checkbox' class='checkbox' id='${index}'  value ='<%= item %>' ${checked} ${disabled}> 
                             <label class="form-check-label" for='${index}'>${labelTxt}</label>  
                       </li>`)(element);
 }
 function todoEvent(){
     $('#page').on("click", function (e) {
         if (e.target && e.target.name === 'checkbox') {
-            todos[e.target.id].active = true;
+            todos[e.target.id].active = !todos[e.target.id].active;
         } 
     });
 }
@@ -37,11 +37,13 @@ function createTodoPage() {
     $("#changeToCart").on("click", function () {
         prev_page = 'todo';
         window.history.pushState('Cart', '', 'Cart'); //?Check it out later 
+        $('#page').off('click');
         createCartPage(catalogue,todos);
         $("#changeToCheckout").on("click", function () {
             prev_page = 'catalogue';
             window.history.pushState('Checkout', '', '#Checkout'); //Check it out later 
-            createCheckoutPage(catalogue);
+            createCheckoutPage(catalogue,todos);
+            
         });
     });
 
@@ -67,7 +69,7 @@ window.onload = function () {
             $("#changeToCheckout").on("click", function () {
                 prev_page = 'catalogue';
                 window.history.pushState('Checkout', '', '#Checkout'); //Check it out later 
-                createCheckoutPage(catalogue);
+                createCheckoutPage(catalogue,todos);
             });
         }
     })
@@ -84,11 +86,16 @@ function router() {
         createCataloguePage(catalogue);
     } else if (link === 'Cart') {
         createCartPage(catalogue,todos);
+        $("#changeToCheckout").on("click", function () {
+            prev_page = 'catalogue';
+            window.history.pushState('Checkout', '', '#Checkout'); //Check it out later 
+            createCheckoutPage(catalogue,todos);
+        });
     } else if (link === 'Checkout') {
-        createCheckoutPage(catalogue);
+        createCheckoutPage(catalogue,todos);
     } else {
         console.log('wrong-page');
     }
 }
 window.onhashchange = router();
-export{todos}
+
