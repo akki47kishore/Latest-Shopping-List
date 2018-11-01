@@ -1,5 +1,6 @@
 function createCheckoutItems(element, index) {
-    return _.template(`<li name='todo-item' id='<%= item %>_${index}' class='py-2 list-group-item border w-50 pr-2'> <%= item %> <%= qty%></li>`)(element);
+    let cost = element.cost * element.bought ; 
+    return _.template(`<li name='todo-item' id='<%= item %>_${index}' class='py-2 list-group-item border w-50 pr-2'> <section class='w-50 font-weight-bold'><%= item %> </section> <section class='w-25 font-weight-bold'>${cost}</section><section class='w-25 font-weight-bold'><%=bought %></section></li>`)(element);
 }
 
 function createCheckoutPage(catalogue, todos) {
